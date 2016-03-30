@@ -45,3 +45,19 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+config/config.rda
+config/filter.rda
+config/grade.rda
+config/user.rda
+config/ids.rda
+*.txt
+*.csv
+data/noteInfo.rda
+historical.R
+config/cron.rda
+roi.R
+.Rhistory
+data/filterNotes.rda
+models/fitGbm.rda
+data/fields.rda
+*.rda
