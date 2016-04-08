@@ -1,5 +1,4 @@
-# View payment history for an individual note
-
+# View payment history for an individual note.
 
 library(shiny)
 library(shinyBS)
@@ -18,12 +17,14 @@ if ( file.exists('/home/john') ) {
 # Load xIRR and lcROI functions
 load('data/lcROI.rda')
 
+# Help information
 help <- function() {
 return('
 <p>NO HELP YET</p>
 ')
 }
 
+# Format currency
 dollar <- function(value, currency.sym="$", digits=2, sep=",", decimal=".") {
   gsub(".00$","",paste(
         currency.sym,
@@ -32,10 +33,12 @@ dollar <- function(value, currency.sym="$", digits=2, sep=",", decimal=".") {
   ))
 }
 
+# Format percent
 percent <- function(x, digits = 2, format = "f", ...) {
   paste0(formatC(100 * x, format = format, digits = digits, ...), "%")
 }
 
+# Load all payment history, summary and probability curves
 if(!exists('noteInfo')) {
   load('data/noteInfo.rda')
 }
@@ -180,19 +183,20 @@ server <- function(input, output, session) {
       return()
     }
     
+    # Get note id from input
     id=as.character(input$nid)
 
+    # Get note payment history, summary and prob curve
     ret <<- lcROI(
       id,
-      noteInfo[[id]][1],
-      noteInfo[[id]][2],
-      noteInfo[[id]][3]
+      noteInfo[[id]][[1]],
+      noteInfo[[id]][[2]],
+      noteInfo[[id]][[3]]
     )
     
     
-    
     output$irr <- renderText(
-      percent(as.numeric(ret[2]))
+      percent(ret[[2]])
     )
     
     
